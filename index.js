@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 
 var verifytoken = 'favlov.verify.token';
-var authtoken = 'EAAAAA1ki4akBANLuG6x0JZCOqU4X5WORMznY7Pb0Vd4jphBrWnof2AQkLYCh8xq8r5cG7Ni6ZAUZCjfr8Q9Y7iWZBKe4BZCSiuYO8ZBJHttPfKwSXnyIucULenv12zv1F0CwZA2OCSEaR73WJvVuipejIkC3djrkSFJag0H9meXvAZDZD';
+var authtoken = proces.env.FB_TOKEN;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -117,3 +117,15 @@ function sendGenericMessage(sender) {
     }
   });
 }
+
+var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+
+// Connection URL
+// Use connect method to connect to the Server
+MongoClient.connect(proces.env.MONGODB_URI, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected correctly to server");
+
+  db.close();
+});
