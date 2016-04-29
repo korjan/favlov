@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 
 var verifytoken = 'favlov.verify.token';
-var authtoken = proces.env.FB_TOKEN;
+var authtoken = process.env.FB_TOKEN;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -123,7 +123,7 @@ var MongoClient = require('mongodb').MongoClient
 
 // Connection URL
 // Use connect method to connect to the Server
-MongoClient.connect(proces.env.MONGODB_URI, function(err, db) {
+MongoClient.connect(process.env.MONGODB_URI, function(err, db) {
   assert.equal(null, err);
   console.log("Connected correctly to server");
 
