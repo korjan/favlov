@@ -14,6 +14,10 @@ app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 5000));
 
+app.get('/test/', function (req, res) {
+  sendTextMessage('716473383', "TEST");
+});
+
 app.get('/webhook/', function (req, res) {
   if (req.query['hub.verify_token'] === verifytoken) {
     res.send(req.query['hub.challenge']);
