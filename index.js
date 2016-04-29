@@ -3,7 +3,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
 
-var token = 'favlov.verify.token';
+var verifytoken = 'favlov.verify.token';
+var authtoken = 'EAAAAA1ki4akBANLuG6x0JZCOqU4X5WORMznY7Pb0Vd4jphBrWnof2AQkLYCh8xq8r5cG7Ni6ZAUZCjfr8Q9Y7iWZBKe4BZCSiuYO8ZBJHttPfKwSXnyIucULenv12zv1F0CwZA2OCSEaR73WJvVuipejIkC3djrkSFJag0H9meXvAZDZD';
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,7 +15,7 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/webhook/', function (req, res) {
-  if (req.query['hub.verify_token'] === token) {
+  if (req.query['hub.verify_token'] === verifytoken) {
     res.send(req.query['hub.challenge']);
   }
   res.send('Error, wrong validation token');
@@ -53,7 +54,7 @@ function sendTextMessage(sender, text) {
   }
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
+    qs: {access_token:authtoken},
     method: 'POST',
     json: {
       recipient: {id:sender},
@@ -102,7 +103,7 @@ function sendGenericMessage(sender) {
   };
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
+    qs: {access_token:authtoken},
     method: 'POST',
     json: {
       recipient: {id:sender},
