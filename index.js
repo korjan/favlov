@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
 
+var token = 'favlov.verify.token';
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,14 +14,13 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/webhook/', function (req, res) {
-  if (req.query['hub.verify_token'] === 'favlov.verify.token') {
+  if (req.query['hub.verify_token'] === token) {
     res.send(req.query['hub.challenge']);
   }
   res.send('Error, wrong validation token');
 });
 
 app.post('/webhook/', function (req, res) {
-  console.log(req);
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
@@ -46,8 +46,6 @@ app.post('/webhook/', function (req, res) {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
-var token = "favlov.verify.token";
 
 function sendTextMessage(sender, text) {
   messageData = {
